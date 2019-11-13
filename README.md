@@ -1,6 +1,12 @@
-## Terraform AWS Template
+## AWS Cognito User Pool Terraform Module
 
-This template is a starting point for creating terraform modules.
+Terraform module that creates an AWS Cognito User Pool with a custom
+domain
 
-Terraform modules should be in a state that they can be published to the Terraform Module Registry. Guidelines can be 
-found here https://www.terraform.io/docs/registry/modules/publish.html
+#### Prerequisites
+An active Route53 Zone
+
+#### Note 
+This module may not destroy on the first attempt with an error stating 
+that the certificate is still in use.  A subsequent terraform destroy will
+remove the certificate
