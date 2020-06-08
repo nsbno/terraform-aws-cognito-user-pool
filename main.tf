@@ -12,7 +12,7 @@ resource "aws_cognito_user_pool" "user_pool" {
   admin_create_user_config {
     allow_admin_create_user_only = var.admin_create_user
   }
-  password_policy{
+  password_policy {
     minimum_length    = var.password_policy_minimum_length
     require_lowercase = var.password_policy_require_lowercase
     require_uppercase = var.password_policy_require_uppercase
@@ -49,11 +49,11 @@ resource "aws_acm_certificate" "cert_pool_domain" {
 }
 
 resource "aws_route53_record" "cert_pool_domain_validation" {
-  name    = aws_acm_certificate.cert_pool_domain.domain_validation_options.0.resource_record_name
-  type    = aws_acm_certificate.cert_pool_domain.domain_validation_options.0.resource_record_type
-  zone_id = data.aws_route53_zone.main.id
-  records = [aws_acm_certificate.cert_pool_domain.domain_validation_options.0.resource_record_value]
-  ttl     = 60
+  name            = aws_acm_certificate.cert_pool_domain.domain_validation_options.0.resource_record_name
+  type            = aws_acm_certificate.cert_pool_domain.domain_validation_options.0.resource_record_type
+  zone_id         = data.aws_route53_zone.main.id
+  records         = [aws_acm_certificate.cert_pool_domain.domain_validation_options.0.resource_record_value]
+  ttl             = 60
   allow_overwrite = var.allow_overwrite
 }
 
@@ -64,10 +64,10 @@ resource "aws_acm_certificate_validation" "cert_pool_domain_validation_request" 
 }
 
 resource "aws_route53_record" "faux_root_a_record" {
-  count = var.create_faux_root_a_record ? 1 : 0
-  name = ""
-  type = "A"
-  ttl = "300"
+  count   = var.create_faux_root_a_record ? 1 : 0
+  name    = ""
+  type    = "A"
+  ttl     = "300"
   records = ["127.0.0.1"]
   zone_id = data.aws_route53_zone.main.id
 }
