@@ -62,3 +62,8 @@ variable "tags" {
   default     = {}
 }
 
+variable "allow_overwrite" {
+  description = "Allow overwrite of aws_route53_record resource."
+  default     = false
+}
+
