@@ -1,8 +1,3 @@
-provider "aws" {
-  region = "us-east-1"
-  alias  = "certificate-provider"
-}
-
 data "aws_route53_zone" "main" {
   name = var.hosted_zone_name
 }
@@ -12,7 +7,7 @@ resource "aws_cognito_user_pool" "user_pool" {
   admin_create_user_config {
     allow_admin_create_user_only = var.admin_create_user
   }
-  password_policy{
+  password_policy {
     minimum_length    = var.password_policy_minimum_length
     require_lowercase = var.password_policy_require_lowercase
     require_uppercase = var.password_policy_require_uppercase
@@ -63,10 +58,10 @@ resource "aws_acm_certificate_validation" "cert_pool_domain_validation_request" 
 }
 
 resource "aws_route53_record" "faux_root_a_record" {
-  count = var.create_faux_root_a_record ? 1 : 0
-  name = ""
-  type = "A"
-  ttl = "300"
+  count   = var.create_faux_root_a_record ? 1 : 0
+  name    = ""
+  type    = "A"
+  ttl     = "300"
   records = ["127.0.0.1"]
   zone_id = data.aws_route53_zone.main.id
 }
