@@ -54,6 +54,7 @@ resource "aws_route53_record" "cert_pool_domain_validation" {
   zone_id = data.aws_route53_zone.main.id
   records = [aws_acm_certificate.cert_pool_domain.domain_validation_options.0.resource_record_value]
   ttl     = 60
+  allow_overwrite = var.allow_overwrite
 }
 
 resource "aws_acm_certificate_validation" "cert_pool_domain_validation_request" {
