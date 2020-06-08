@@ -8,21 +8,19 @@ locals {
 }
 
 provider "aws" {
-  version = "~> 2.35.0"
+  version = "~> 2.65.0"
   region  = local.region
-  alias   = "default"
 }
 
 provider "aws" {
-  version = "~> 2.35.0"
-  region = "us-east-1"
-  alias  = "certificate-provider"
+  version = "~> 2.65.0"
+  region  = "us-east-1"
+  alias   = "certificate_provider"
 }
 
 module "cognito_user_pool" {
   providers = {
-    aws = aws.default,
-    aws = aws.certificate-provider
+    aws = aws.certificate_provider
   }
   source                       = "../../"
   name_prefix                  = local.name_prefix
