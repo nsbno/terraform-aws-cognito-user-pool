@@ -1,6 +1,5 @@
 provider "aws" {
-  region = "us-east-1"
-  alias  = "certificate-provider"
+  alias = "certificate_provider"
 }
 
 data "aws_route53_zone" "main" {
@@ -41,7 +40,7 @@ resource "aws_route53_record" "custom_pool_domain_subdomain" {
 resource "aws_acm_certificate" "cert_pool_domain" {
   domain_name       = "${var.custom_pool_domain_subdomain}.${var.hosted_zone_name}"
   validation_method = "DNS"
-  provider          = aws.certificate-provider
+  provider          = aws.certificate_provider
   tags              = var.tags
   lifecycle {
     create_before_destroy = true
@@ -60,7 +59,7 @@ resource "aws_route53_record" "cert_pool_domain_validation" {
 resource "aws_acm_certificate_validation" "cert_pool_domain_validation_request" {
   certificate_arn         = aws_acm_certificate.cert_pool_domain.arn
   validation_record_fqdns = [aws_route53_record.cert_pool_domain_validation.fqdn]
-  provider                = aws.certificate-provider
+  provider                = aws.certificate_provider
 }
 
 resource "aws_route53_record" "faux_root_a_record" {
