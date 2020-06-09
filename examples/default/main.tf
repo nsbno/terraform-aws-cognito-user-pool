@@ -20,7 +20,7 @@ provider "aws" {
 
 module "cognito_user_pool" {
   providers = {
-    aws = aws.certificate_provider
+    aws.certificate_provider = aws.certificate_provider
   }
   source                       = "../../"
   name_prefix                  = local.name_prefix
