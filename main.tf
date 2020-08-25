@@ -48,10 +48,10 @@ resource "aws_acm_certificate" "cert_pool_domain" {
 }
 
 resource "aws_route53_record" "cert_pool_domain_validation" {
-  name            = aws_acm_certificate.cert_pool_domain.domain_validation_options.0.resource_record_name
-  type            = aws_acm_certificate.cert_pool_domain.domain_validation_options.0.resource_record_type
+  name            = tolist(aws_acm_certificate.cert_pool_domain.domain_validation_options)[0].resource_record_name
+  type            = tolist(aws_acm_certificate.cert_pool_domain.domain_validation_options)[0].resource_record_type
   zone_id         = data.aws_route53_zone.main.id
-  records         = [aws_acm_certificate.cert_pool_domain.domain_validation_options.0.resource_record_value]
+  records         = [tolist(aws_acm_certificate.cert_pool_domain.domain_validation_options)[0].resource_record_value]
   ttl             = 60
   allow_overwrite = var.allow_overwrite
 }
