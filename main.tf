@@ -47,7 +47,7 @@ resource "aws_acm_certificate" "cert_pool_domain" {
     create_before_destroy = true
   }
 }
-/*
+
 resource "aws_route53_record" "cert_pool_domain_validation" {
   # name            = tolist(aws_acm_certificate.cert_pool_domain.domain_validation_options)[0].resource_record_name
   # type            = tolist(aws_acm_certificate.cert_pool_domain.domain_validation_options)[0].resource_record_type
@@ -75,7 +75,7 @@ resource "aws_acm_certificate_validation" "cert_pool_domain_validation_request" 
   validation_record_fqdns = [for record in aws_route53_record.cert_pool_domain_validation: record.fqdn]
   provider                = aws.certificate_provider
 }
-*/
+
 resource "aws_route53_record" "faux_root_a_record" {
   count   = var.create_faux_root_a_record ? 1 : 0
   name    = ""
