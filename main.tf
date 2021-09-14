@@ -1,5 +1,5 @@
 provider "aws" {
-  alias = "certificate_provider"
+  alias  = "certificate_provider"
   region = "us-east-1"
 }
 
@@ -18,6 +18,18 @@ resource "aws_cognito_user_pool" "user_pool" {
     require_uppercase = var.password_policy_require_uppercase
     require_numbers   = var.password_policy_require_numbers
     require_symbols   = var.password_policy_require_symbols
+  }
+  dynamic "account_recovery_setting" {
+    for_each = length(var.account_recovery_mechanisms) > 0 ? [var.account_recovery_mechanisms] : []
+    content {
+      dynamic "recovery_mechanism" {
+        for_each = account_recovery_setting.value
+        content {
+          name     = recovery_mechanism.value.name
+          priority = recovery_mechanism.value.priority
+        }
+      }
+    }
   }
 }
 
@@ -55,7 +67,7 @@ resource "aws_route53_record" "cert_pool_domain_validation" {
   records         = [tolist(aws_acm_certificate.cert_pool_domain.domain_validation_options)[0].resource_record_value]
   ttl             = 60
   allow_overwrite = var.allow_overwrite
-  
+
 }
 
 resource "aws_acm_certificate_validation" "cert_pool_domain_validation_request" {

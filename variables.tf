@@ -56,6 +56,15 @@ variable "password_policy_require_symbols" {
   default     = false
 }
 
+variable "account_recovery_mechanisms" {
+  description = "A list of account recovery mechanisms."
+  default     = []
+  type = list(object({
+    name     = string
+    priority = number
+  }))
+}
+
 variable "tags" {
   description = "A map of tags (key-value pairs) passed to resources."
   type        = map(string)
