@@ -13,11 +13,12 @@ resource "aws_cognito_user_pool" "user_pool" {
     allow_admin_create_user_only = var.admin_create_user
   }
   password_policy {
-    minimum_length    = var.password_policy_minimum_length
-    require_lowercase = var.password_policy_require_lowercase
-    require_uppercase = var.password_policy_require_uppercase
-    require_numbers   = var.password_policy_require_numbers
-    require_symbols   = var.password_policy_require_symbols
+    minimum_length                   = var.password_policy_minimum_length
+    require_lowercase                = var.password_policy_require_lowercase
+    require_uppercase                = var.password_policy_require_uppercase
+    require_numbers                  = var.password_policy_require_numbers
+    require_symbols                  = var.password_policy_require_symbols
+    temporary_password_validity_days = var.password_policy_temporary_password_validity_days
   }
   dynamic "account_recovery_setting" {
     for_each = length(var.account_recovery_mechanisms) > 0 ? [var.account_recovery_mechanisms] : []
