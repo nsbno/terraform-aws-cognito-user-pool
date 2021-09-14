@@ -56,6 +56,11 @@ variable "password_policy_require_symbols" {
   default     = false
 }
 
+variable "password_policy_temporary_password_validity_days" {
+  description = "A container for information about the user pool password policy."
+  default     = 7
+}
+
 variable "tags" {
   description = "A map of tags (key-value pairs) passed to resources."
   type        = map(string)
