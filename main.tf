@@ -1,8 +1,3 @@
-provider "aws" {
-  alias = "certificate_provider"
-  region = "us-east-1"
-}
-
 data "aws_route53_zone" "main" {
   name = var.hosted_zone_name
 }
